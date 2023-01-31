@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Solution {
-    private static final Pattern GET_NUMBER = Pattern.compile("[0-9]+");
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
 
     public String[] solution(String[] files) {
         ArrayList<String[]> fileList = new ArrayList<>();
@@ -13,7 +13,7 @@ class Solution {
             String[] data = file.split("[\\d]");
             String[] temp = new String[] { file, data[0].toLowerCase(), "" };
 
-            Matcher matcher = GET_NUMBER.matcher(file);
+            Matcher matcher = NUMBER_PATTERN.matcher(file);
             if (matcher.find()) {
                 temp[2] = matcher.group();
             }
