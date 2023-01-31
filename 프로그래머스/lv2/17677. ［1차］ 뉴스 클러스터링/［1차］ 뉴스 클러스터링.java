@@ -5,10 +5,6 @@ class Solution {
     public int solution(String str1, String str2) {
         str1 = str1.toLowerCase();
         str2 = str2.toLowerCase();
-        if (str1.equals(str2)) {
-            return 65536;
-        }
-
         HashMap<String, Integer> str1Group = new HashMap<>();
         HashMap<String, Integer> str2Group = new HashMap<>();
 
@@ -24,6 +20,9 @@ class Solution {
             if (target.matches("[a-z]{2}")) {
                 str2Group.put(target, str2Group.getOrDefault(target, 0) + 1);
             }
+        }
+        if (str1Group.size() == 0 && str2Group.size() == 0) {
+            return 65536;
         }
 
         HashMap<String, Integer> unionGroup = new HashMap<>();
