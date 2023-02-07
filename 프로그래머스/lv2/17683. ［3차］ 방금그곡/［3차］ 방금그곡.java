@@ -12,12 +12,7 @@ class Solution {
             musicInfo[i] = musicInfos[i].split(",");
         }
 
-        Arrays.sort(musicInfo, (o1, o2) -> {
-            if (o1[0].compareTo(o2[0]) == 0) {
-                return o2[1].compareTo(o1[1]);
-            }
-            return o1[0].compareTo(o2[0]);
-        });
+        Arrays.sort(musicInfo, (o1, o2) ->  o1[0].compareTo(o2[0]));
 
         for (String[] music : musicInfo) {
             String musicCode = replaceSharpToLowerCase(music[3]);
