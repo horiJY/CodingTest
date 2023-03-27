@@ -21,7 +21,6 @@ class Solution {
             }
         }
 
-        System.out.println(findRoute(map, start, goal));
         return findRoute(map, start, goal);
     }
 
