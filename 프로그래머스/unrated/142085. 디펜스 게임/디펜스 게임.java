@@ -31,21 +31,21 @@ class Solution {
     }
 
     private static boolean validDefence(int mid) {
-        List<Integer> collect = Arrays.stream(enemyClone, 0, mid + 1)
+        List<Integer> stage = Arrays.stream(enemyClone, 0, mid + 1)
                 .boxed()
                 .sorted()
                 .collect(Collectors.toList());
         int n = dn;
-        int size = collect.size();
+        int stageSize = stage.size();
 
-        for (int i = 0; i < size; i++) {
-            Integer val = collect.get(i);
+        for (int i = 0; i < stageSize; i++) {
+            Integer val = stage.get(i);
             if (n >= val) {
                 n -= val;
                 continue;
             }
             // 남은 라운드를 무적권을 통해 skip
-            return dk >= size - i;
+            return dk >= stageSize - i;
         }
         return true;
     }
