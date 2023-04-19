@@ -14,5 +14,6 @@ class Solution {
             answer += endX - startX + 1;
         }
         return answer * 4 - (r2 - r1 + 1) * 4;
+
     }
 }
