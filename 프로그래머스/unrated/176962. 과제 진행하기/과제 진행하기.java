@@ -9,33 +9,37 @@ class Solution {
 
     public String[] solution(String[][] plans) {
         List<String> answer = new ArrayList<>();
-        Queue<Assignment> task = new PriorityQueue<>((h1, h2) -> h1.startTime - h2.startTime);
-        Deque<Assignment> suspendStack = new ArrayDeque<>();
+        Queue<Assignment> remainTask = new PriorityQueue<>((h1, h2) -> h1.startTime - h2.startTime);
+        Deque<Assignment> proceedTask = new ArrayDeque<>();
         for (String[] plan : plans) {
-            task.add(new Assignment(plan[0], plan[1], plan[2]));
+            remainTask.add(new Assignment(plan[0], plan[1], plan[2]));
         }
-        int curTime = task.peek().startTime;
-        suspendStack.add(task.poll());
-        while (!task.isEmpty()) {
-            if (task.peek().startTime < curTime + suspendStack.peekLast().playTime) {
+
+        int curTime = remainTask.peek().startTime;
+        proceedTask.add(remainTask.poll());
+        while (!remainTask.isEmpty()) {
+            if (remainTask.peek().startTime < curTime + proceedTask.peekLast().playTime) {
                 // 새 과제 시작전에 진행중인 작업을 끝내지 못함
-                Assignment next = task.poll();
-                suspendStack.peekLast().playTime -= next.startTime - curTime;
+                Assignment next = remainTask.poll();
+                proceedTask.peekLast().playTime -= next.startTime - curTime;
                 curTime = next.startTime;
-                suspendStack.add(next);
+                proceedTask.add(next);
             } else {
                 // 진행중인 작업 끝
-                curTime += suspendStack.peekLast().playTime;
-                answer.add(suspendStack.pollLast().name);
+                curTime += proceedTask.peekLast().playTime;
+                answer.add(proceedTask.pollLast().name);
             }
-            if (suspendStack.isEmpty()) {
-                curTime = task.peek().startTime;
-                suspendStack.add(task.poll());
+
+            if (proceedTask.isEmpty()) {
+                curTime = remainTask.peek().startTime;
+                proceedTask.add(remainTask.poll());
             }
         }
-        while (!suspendStack.isEmpty()) {
-            answer.add(suspendStack.pollLast().name);
+
+        while (!proceedTask.isEmpty()) {
+            answer.add(proceedTask.pollLast().name);
         }
+
         return answer.toArray(String[]::new);
     }
 
