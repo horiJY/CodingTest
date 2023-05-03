@@ -6,18 +6,18 @@ class Solution {
         int[] answer = new int[n];
         List<Integer> list = new ArrayList<>();
 
-        long f = 1;
+        long remainPossibility = k - 1;
+        long totalPossibility = 1;
         for (int i = 1; i <= n; i++) {
             list.add(i);
-            f *= i;
+            totalPossibility *= i;
         }
 
-        k--; // index 보정
         int idx = 0;
         while (idx < n) {
-            f /= n - idx; // 현재 위치에서의 남은 경우의 수
-            answer[idx++] = list.remove((int) (k / f));
-            k %= f;
+            totalPossibility /= n - idx; // 현재 위치에서의 남은 경우의 수
+            answer[idx++] = list.remove((int) (remainPossibility / totalPossibility));
+            remainPossibility %= totalPossibility;
         }
 
         return answer;
