@@ -7,27 +7,20 @@ class Solution {
         int answer = Integer.MAX_VALUE;
         Deque<Board> que = new ArrayDeque<>();
         que.add(new Board(beginning, 0));
-        for (int i = 0; i < beginning.length; i++) {
-            que.add(new Board(beginning, 0));
-            turnHorizon(que.peekLast().board, i);
-            que.peekLast().count++;
-        }
-        for (int i = 0; i < beginning[0].length; i++) {
-            que.add(new Board(beginning, 0));
-            turnVertical(que.peekLast().board, i);
-            que.peekLast().count++;
-        }
+        que.add(new Board(beginning, 0));
+        turnHorizon(que.peekLast().board, 0);
+        que.peekLast().count++;
 
         while (!que.isEmpty()) {
             Board cur = que.pop();
-            // row 동기화
+             // col 동기화
             for (int x = 0; x < target[0].length; x++) {
                 if (cur.board[0][x] != target[0][x]) {
                     turnVertical(cur.board, x);
                     cur.count++;
                 }
             }
-            // col 동기화
+            // row 동기화
             for (int y = 0; y < target.length; y++) {
                 if (cur.board[y][0] != target[y][0]) {
                     turnHorizon(cur.board, y);
