@@ -7,19 +7,19 @@ class Solution {
         int[] start = new int[] { startX, startY };
 
         for (int i = 0; i < answer.length; i++) {
-            int minDistance = Integer.MAX_VALUE;
-            List<int[]> tempTarget = getSymmetricTranspositionWithBall(m, n, start, balls[i]);
-            for (int[] target : tempTarget) {
-                minDistance = Math.min(minDistance, getDistanceWithTowPoint(start, target));
+            int tempDistance = Integer.MAX_VALUE;
+            List<int[]> tempBallPosition = getSymmetricTranspositionWithBall(m, n, start, balls[i]);
+            for (int[] ball : tempBallPosition) {
+                tempDistance = Math.min(tempDistance, getDistanceWithTowPoint(start, ball));
             }
-            answer[i] = minDistance;
+            answer[i] = tempDistance;
         }
 
         return answer;
     }
 
     private static List<int[]> getSymmetricTranspositionWithBall(int m, int n, int[] start, int[] ball) {
-        List<int[]> result = new ArrayList<>();
+        List<int[]> tempPosition = new ArrayList<>();
         /**
          * 튕길 수 있는 4가지 조건
          * - 아래 쿠션
@@ -27,20 +27,20 @@ class Solution {
          * - 오른쪽 쿠션
          * - 왼쪽 쿠션
          */
-        if (!(start[0] == ball[0] && start[1] > ball[1])) { // 아래 쿠션
-            result.add(new int[] { ball[0], ball[1] * -1 });
+        if (start[0] != ball[0] || start[1] > ball[1]) {
+            tempPosition.add(new int[] { ball[0], n + (n - ball[1]) }); // 상
         }
-        if (!(start[0] == ball[0] && start[1] < ball[1])) { // 위 쿠션
-            result.add(new int[] { ball[0], n + (n - ball[1]) });
+        if (start[0] != ball[0] || start[1] < ball[1]) {
+            tempPosition.add(new int[] { ball[0], ball[1] * -1 }); // 하
         }
-        if (!(start[1] == ball[1] && start[0] < ball[0])) { // 오른 쿠션
-            result.add(new int[] { m + (m - ball[0]), ball[1] });
+        if (start[0] < ball[0] || start[1] != ball[1]) {
+            tempPosition.add(new int[] { ball[0] * -1, ball[1] }); // 좌
         }
-        if (!(start[1] == ball[1] && start[0] > ball[0])) { // 왼 쿠션
-            result.add(new int[] { ball[0] * -1, ball[1] });
+        if (start[0] > ball[0] || start[1] != ball[1]) {
+            tempPosition.add(new int[] { m + (m - ball[0]), ball[1] }); // 우
         }
 
-        return result;
+        return tempPosition;
     }
 
     private int getDistanceWithTowPoint(int[] start, int[] target) {
