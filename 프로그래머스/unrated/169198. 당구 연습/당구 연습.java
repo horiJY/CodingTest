@@ -6,12 +6,11 @@ class Solution {
         int[] answer = new int[balls.length];
         int[] start = new int[] { startX, startY };
 
-        // x축과 y축 중 어느쪽으로 맞아야 더 짧은가?
         for (int i = 0; i < answer.length; i++) {
             int minDistance = Integer.MAX_VALUE;
             List<int[]> tempTarget = getSymmetricTranspositionWithBall(m, n, start, balls[i]);
             for (int[] target : tempTarget) {
-                minDistance = Math.min(minDistance, getShortRouteWithTowPoint(start, target));
+                minDistance = Math.min(minDistance, getDistanceWithTowPoint(start, target));
             }
             answer[i] = minDistance;
         }
@@ -44,7 +43,7 @@ class Solution {
         return result;
     }
 
-    private int getShortRouteWithTowPoint(int[] start, int[] target) {
+    private int getDistanceWithTowPoint(int[] start, int[] target) {
         int maxX = Math.max(start[0], target[0]);
         int minX = Math.min(start[0], target[0]);
         int maxY = Math.max(start[1], target[1]);
