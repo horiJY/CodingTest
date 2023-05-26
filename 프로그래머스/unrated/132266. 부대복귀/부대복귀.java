@@ -20,7 +20,7 @@ class Solution {
 
         minDist = new int[n + 1];
         Arrays.fill(minDist, Integer.MAX_VALUE);
-        executeMinDist(destination);
+        calculateMinDist(destination);
 
         int[] answer = new int[sources.length];
         for (int i = 0; i < answer.length; i++) {
@@ -30,7 +30,7 @@ class Solution {
         return answer;
     }
 
-    private void executeMinDist(int destination) {
+    private void calculateMinDist(int destination) {
         minDist[destination] = 0;
         Deque<Integer> que = new ArrayDeque<>();
         que.add(destination);
