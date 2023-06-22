@@ -19,16 +19,14 @@ class Solution {
         List<Double> areaOfGraph = new ArrayList<>();
         Double totalArea = 0.0;
         for (int i = 1; i < graph.size(); i++) {
-            int e1 = graph.get(i - 1);
-            int e2 = graph.get(i);
-            double temp = Math.min(e1, e2) + Math.abs(e1 - e2) / 2.0;
+            double temp = (graph.get(i - 1)+graph.get(i)) / 2.0;
             areaOfGraph.add(temp);
             totalArea += temp;
         }
 
         double[] answer = new double[ranges.length];
         for (int i = 0; i < answer.length; i++) {
-            if (areaOfGraph.size() - ranges[i][0] < ranges[i][1] * -1) {
+            if (ranges[i][0] >areaOfGraph.size() + ranges[i][1]) {
                 answer[i] = -1.0;
                 continue;
             }
