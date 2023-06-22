@@ -7,25 +7,25 @@ class Solution {
     public int solution(int[] cards) {
         List<Integer> answer = new ArrayList<>();
         answer.add(0);
-        boolean[] open = new boolean[cards.length];
-        int openCnt = 0;
-        while (openCnt < cards.length) {
-            boolean[] tempOpen = new boolean[cards.length];
+        boolean[] isOpen = new boolean[cards.length];
+        int countForOpenBox = 0;
+        while (countForOpenBox < cards.length) {
+            boolean[] tempCountForOpenBox = new boolean[cards.length];
             int tempOpenCnt = 0;
             int boxIdx = 0;
-            for (int j = 0; j < open.length; j++) {
-                if (!open[j]) {
+            for (int j = 0; j < isOpen.length; j++) {
+                if (!isOpen[j]) {
                     boxIdx = j;
                     break;
                 }
             }
 
             while (true) {
-                if (tempOpen[cards[boxIdx] - 1] || open[cards[boxIdx] - 1]) {
-                    openCnt += tempOpenCnt;
-                    for (int i = 0; i < tempOpen.length; i++) {
-                        if (tempOpen[i]) {
-                            open[i] = true;
+                if (tempCountForOpenBox[cards[boxIdx] - 1] || isOpen[cards[boxIdx] - 1]) {
+                    countForOpenBox += tempOpenCnt;
+                    for (int i = 0; i < tempCountForOpenBox.length; i++) {
+                        if (tempCountForOpenBox[i]) {
+                            isOpen[i] = true;
                         }
                     }
                     answer.add(tempOpenCnt);
@@ -33,7 +33,7 @@ class Solution {
                 } else {
                     tempOpenCnt++;
                     boxIdx = cards[boxIdx] - 1;
-                    tempOpen[boxIdx] = true;
+                    tempCountForOpenBox[boxIdx] = true;
                 }
             }
 
