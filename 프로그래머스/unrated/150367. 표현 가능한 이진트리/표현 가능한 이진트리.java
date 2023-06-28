@@ -40,26 +40,9 @@ class Solution {
         String rightSubStr = binaryStr.substring(root + 1);
 
         if (binaryStr.charAt(root) == '0') {
-            return isZeroTree(leftSubStr) && isZeroTree(rightSubStr);
+            return !leftSubStr.contains("1") && !rightSubStr.contains("1");
         }
 
         return isBinaryTree(leftSubStr) && isBinaryTree(rightSubStr);
-    }
-
-    private boolean isZeroTree(String binaryStr) {
-        int len = binaryStr.length();
-        if (binaryStr.length() == 0) {
-            return true;
-        }
-
-        int root = len / 2;
-        String leftSubStr = binaryStr.substring(0, root);
-        String rightSubStr = binaryStr.substring(root + 1);
-
-        if (binaryStr.charAt(root) == '1') {
-            return false;
-        }
-
-        return isZeroTree(leftSubStr) && isZeroTree(rightSubStr);
     }
 }
