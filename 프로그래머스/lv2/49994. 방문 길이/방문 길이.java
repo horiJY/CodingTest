@@ -13,21 +13,18 @@ class Solution {
         move.put('L', new int[] { -1, 0 });
         move.put('R', new int[] { 1, 0 });
         Set<String> visit = new HashSet<>();
-        int answer = 0;
+        
         for (char next : dirs.toCharArray()) {
             int[] dxdy = move.get(next);
             if (isValid(cur, dxdy)) {
                 String path = "" + cur[0] + cur[1] + dxdy[0] + dxdy[1];
                 cur[0] += dxdy[0];
                 cur[1] += dxdy[1];
-                if (!visit.contains(path)) {
-                    answer++;
-                    visit.add(path);
-                    visit.add("" + cur[0] + cur[1] + (dxdy[0] * -1) + (dxdy[1] * -1));
-                }
+                visit.add(path);
+                visit.add("" + cur[0] + cur[1] + (dxdy[0] * -1) + (dxdy[1] * -1));
             }
         }
-        return answer;
+        return visit.size()/2;
     }
 
     private boolean isValid(int[] cur, int[] dxdy) {
