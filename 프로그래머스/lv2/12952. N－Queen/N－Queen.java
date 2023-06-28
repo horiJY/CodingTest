@@ -2,14 +2,12 @@ import java.util.ArrayList;
 
 class Solution {
     static int queenQuantity;
-    static int answer;
+    static int answer = 0;
 
     public int solution(int n) {
         queenQuantity = n;
-        answer = 0;
         nQueen(new ArrayList<Integer>());
 
-        System.out.println(answer);
         return answer;
     }
 
