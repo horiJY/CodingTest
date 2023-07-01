@@ -5,16 +5,16 @@ class Solution {
     public long solution(int n, int[] works) {
         long answer = 0;
 
-        PriorityQueue<Integer> pQue = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Long> pQue = new PriorityQueue<>(Collections.reverseOrder());
         for (int i = 0; i < works.length; i++) {
-            pQue.offer(works[i]);
+            pQue.offer((long) works[i]);
         }
 
-        if (pQue.stream().mapToInt(e -> e).sum() <= n) {
+        if (pQue.stream().mapToLong(e -> e).sum() <= n) {
             return 0;
         }
 
-        int maxTime = 0;
+        long maxTime = 0L;
         while (n > 0) {
             maxTime = pQue.poll();
             maxTime--;
@@ -22,8 +22,8 @@ class Solution {
             n--;
         }
 
-        while (!pQue.isEmpty()) {
-            answer += Math.pow(pQue.poll(), 2);
+        if (!pQue.isEmpty()) {
+            answer = pQue.stream().reduce(0L, (a, b) -> a + Math.round(Math.pow(b, 2)));
         }
 
         return answer;
