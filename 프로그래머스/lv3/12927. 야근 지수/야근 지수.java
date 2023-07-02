@@ -20,9 +20,10 @@ class Solution {
         }
 
         if(!pQue.isEmpty()){
-            answer = pQue.stream().parallel().mapToLong(e -> (long) Math.pow(e, 2)).sum();
+            // answer = pQue.stream().parallel().mapToLong(e -> (long) Math.pow(e, 2)).sum(); // 130ms, 70MB
+            answer = pQue.stream().mapToLong(e -> (long) Math.pow(e, 2)).sum(); // 
         // while (!pQue.isEmpty()) {
-        //     answer += Math.pow(pQue.poll(), 2);
+            // answer += Math.pow(pQue.poll(), 2); //127ms, 68MB
         }
 
         return answer;
