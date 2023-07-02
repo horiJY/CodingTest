@@ -19,8 +19,10 @@ class Solution {
             n--;
         }
 
-        while (!pQue.isEmpty()) {
-            answer += Math.pow(pQue.poll(), 2);
+        if(!pQue.isEmpty()){
+            answer = pQue.stream().parallel().mapToLong(e -> (long) Math.pow(e, 2)).sum();
+        // while (!pQue.isEmpty()) {
+        //     answer += Math.pow(pQue.poll(), 2);
         }
 
         return answer;
