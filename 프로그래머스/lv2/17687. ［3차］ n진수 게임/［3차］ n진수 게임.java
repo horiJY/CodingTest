@@ -4,7 +4,7 @@ class Solution {
         int idx = p;
         for (int number = 0; answer.length() < t; number++) {
             // String numberStr = Integer.toString(number,n).toUpperCase();
-            String numberStr = getNumberStringWithNotation(number, n);
+            String numberStr = getNumberStringWithBaseN(number, n);
 
             int remainderCnt = numberStr.length() % m;
             while (idx - 1 < numberStr.length()) {
@@ -19,7 +19,7 @@ class Solution {
         return answer.toString();
     }
 
-    private String getNumberStringWithNotation(int number, int notation) {
+    private String getNumberStringWithBaseN(int number, int notation) {
         StringBuilder sb = new StringBuilder();
         while (number >= 0) {
             if (number < notation) {
