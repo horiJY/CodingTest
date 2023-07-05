@@ -13,7 +13,7 @@ class Solution {
             String startGem = gems[start];
             int startGemCount = gemMap.getOrDefault(startGem, 0);
 
-            while (gemMap.getOrDefault(startGem, 0) > 1) {
+            while (startGemCount > 1) {
                 gemMap.put(startGem, startGemCount - 1);
                 start++;
                 startGem = gems[start];
