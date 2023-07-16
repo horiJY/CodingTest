@@ -13,10 +13,10 @@ class Solution {
             map[e[0]][e[1]] = map[e[1]][e[0]] = e[2];
         }
 
-        for (int m = 1; m <= n; m++)
-            for (int u = 1; u <= n; u++)
-                for (int v = 1; v <= n; v++)
-                    map[u][v] = Math.min(map[u][v], map[u][m] + map[m][v]);
+        for (int mid = 1; mid <= n; mid++)
+            for (int start = 1; start <= n; start++)
+                for (int end = 1; end <= n; end++)
+                    map[start][end] = Math.min(map[start][end], map[start][mid] + map[mid][end]);
 
         int answer = Integer.MAX_VALUE;
         for (int m = 1; m <= n; m++) {
