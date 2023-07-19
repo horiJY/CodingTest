@@ -1,41 +1,50 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Main {
-    static int lenLimit = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        lenLimit = Integer.parseInt(br.readLine().trim());
-        printDecimal(0, 0);
+        int N = Integer.parseInt(br.readLine().trim());
+
+        ArrayList<Integer> amazingPrimes = new ArrayList<>();
+
+        // 1부터 시작하여 신기한 소수를 생성
+        generateAmazingPrimes(0, N, 0, amazingPrimes);
+
+        // 신기한 소수를 오름차순으로 정렬하여 출력
+        for (int prime : amazingPrimes) {
+            System.out.println(prime);
+        }
     }
 
-    private static void printDecimal(int num, int len) {
-        if (len == lenLimit) {
-            System.out.println(num);
+    // 신기한 소수를 생성하는 재귀 함수
+    public static void generateAmazingPrimes(int num, int N, int depth, ArrayList<Integer> amazingPrimes) {
+        if (depth == N) {
+            amazingPrimes.add(num);
             return;
         }
-        for (int i = 0; i < 10; i++) {
-            int next = num * 10 + i;
-            if (isPrime(next)) {
-                printDecimal(next, len + 1);
+
+        for (int i = 1; i <= 9; i++) {
+            int candidate = num * 10 + i;
+            if (isPrime(candidate)) {
+                generateAmazingPrimes(candidate, N, depth + 1, amazingPrimes);
             }
         }
     }
 
-    public static boolean isPrime(int num) {
-        if (num < 2) {
+    // 소수인지 판별하는 함수
+    public static boolean isPrime(int number) {
+        if (number < 2)
             return false;
+
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0)
+                return false;
         }
 
-        for (int i = 2; i * i <= num; i++) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
         return true;
     }
-
 }
