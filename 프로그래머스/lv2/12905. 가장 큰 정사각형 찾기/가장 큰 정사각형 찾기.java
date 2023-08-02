@@ -25,3 +25,5 @@ class Solution {
         return answer * answer;
     }
 }
+
+// 왜 dp 인가??
