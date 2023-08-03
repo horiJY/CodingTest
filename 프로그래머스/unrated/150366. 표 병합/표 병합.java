@@ -21,12 +21,11 @@ class Solution {
                         int r = Integer.parseInt(input[1]);
                         int c = Integer.parseInt(input[2]);
                         Cell target = cell[r][c].parent;
-                        String value = cell[r][c].value = input[3];
 
                         for (int rr = 1; rr < cell.length; rr++) { // merge 되어있을 수 있어 전체를 순회
                             for (int cc = 1; cc < cell[0].length; cc++) {
                                 if (cell[rr][cc].parent == target) {
-                                    cell[rr][cc].value = value;
+                                    cell[rr][cc].value = input[3];
                                 }
                             }
                         }
