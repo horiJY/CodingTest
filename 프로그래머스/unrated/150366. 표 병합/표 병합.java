@@ -22,21 +22,13 @@ class Solution {
                         int c = Integer.parseInt(input[2]);
                         Cell target = cell[r][c].parent;
 
-                        for (int rr = 1; rr < cell.length; rr++) { // merge 되어있을 수 있어 전체를 순회
-                            for (int cc = 1; cc < cell[0].length; cc++) {
-                                if (cell[rr][cc].parent == target) {
-                                    cell[rr][cc].value = input[3];
-                                }
-                            }
-                        }
+                        Predicate<Cell> matchCellParentPredicate = (Cell e) -> e.parent == target;
+                        Consumer<Cell> updateCellValueConsumer = (Cell e) -> e.value = input[3];
+                        updateCell(cell, matchCellParentPredicate, updateCellValueConsumer);
                     } else if (!input[1].equals(input[2])) { // update value1 value2
-                        for (int r = 1; r < cell.length; r++) {
-                            for (int c = 1; c < cell[0].length; c++) {
-                                if (cell[r][c].value.equals(input[1])) {
-                                    cell[r][c].value = input[2];
-                                }
-                            }
-                        }
+                        Predicate<Cell> matchCellValuePredicate = (Cell e) -> e.value.equals(input[1]);
+                        Consumer<Cell> updateCellValueConsumer = (Cell e) -> e.value = input[2];
+                        updateCell(cell, matchCellValuePredicate, updateCellValueConsumer);
                     }
                 }
                 case "MERGE" -> {
@@ -60,14 +52,15 @@ class Solution {
                         cell[r2][c2].value = fixValue = cell[r1][c1].value;
                     }
 
-                    for (int rr = 1; rr < cell.length; rr++) {
-                        for (int cc = 1; cc < cell[0].length; cc++) {
-                            if (cell[rr][cc].parent == target) {
-                                cell[rr][cc].parent = fixParent;
-                                cell[rr][cc].value = fixValue;
-                            }
-                        }
-                    }
+                    final Cell preTarget = target;
+                    final Cell preParent = fixParent;
+                    final String preValue = fixValue;
+                    Predicate<Cell> matchCellParentPredicate = (Cell e) -> e.parent == preTarget;
+                    Consumer<Cell> updateCellConsumer = (Cell e) -> {
+                        e.parent = preParent;
+                        e.value = preValue;
+                    };
+                    updateCell(cell, matchCellParentPredicate, updateCellConsumer);
                 }
                 case "UNMERGE" -> {
                     int r = Integer.parseInt(input[1]);
@@ -75,13 +68,14 @@ class Solution {
                     Cell target = cell[r][c].parent;
                     String origValue = cell[r][c].value;
 
-                    for (int rr = 1; rr < cell.length; rr++) {
-                        for (int cc = 1; cc < cell[0].length; cc++) {
-                            if (cell[rr][cc].parent == target) {
-                                cell[rr][cc] = new Cell();
+                    for (int row = 1; row < cell.length; row++) {
+                        for (int col = 1; col < cell[0].length; col++) {
+                            if (cell[row][col].parent == target) {
+                                cell[row][col] = new Cell();
                             }
                         }
                     }
+
                     cell[r][c].parent = cell[r][c];
                     cell[r][c].value = origValue;
                 }
@@ -101,9 +95,28 @@ class Solution {
 
         return answer.toArray(new String[0]);
     }
+
+    private void updateCell(Cell[][] cell, Predicate<Cell> p, Consumer<Cell> c) {
+        for (int row = 1; row < cell.length; row++) { // merge 되어있을 수 있어 전체를 순회
+            for (int col = 1; col < cell[0].length; col++) {
+                if (p.test(cell[row][col])) {
+                    c.process(cell[row][col]);
+                }
+            }
+        }
+    }
+
 }
 
 class Cell {
     Cell parent = this;
     String value = "";
+}
+
+interface Predicate<T> {
+    boolean test(T t);
+}
+
+interface Consumer<T> {
+    void process(T t);
 }
