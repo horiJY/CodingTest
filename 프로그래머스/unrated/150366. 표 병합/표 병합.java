@@ -22,13 +22,9 @@ class Solution {
                         int c = Integer.parseInt(input[2]);
                         Cell target = cell[r][c].parent;
 
-                        Predicate<Cell> matchCellParentPredicate = (Cell e) -> e.parent == target;
-                        Consumer<Cell> updateCellValueConsumer = (Cell e) -> e.value = input[3];
-                        updateCell(cell, matchCellParentPredicate, updateCellValueConsumer);
+                        updateCell(cell, (Cell e) -> e.parent == target, (Cell e) -> e.value = input[3]);
                     } else if (!input[1].equals(input[2])) { // update value1 value2
-                        Predicate<Cell> matchCellValuePredicate = (Cell e) -> e.value.equals(input[1]);
-                        Consumer<Cell> updateCellValueConsumer = (Cell e) -> e.value = input[2];
-                        updateCell(cell, matchCellValuePredicate, updateCellValueConsumer);
+                        updateCell(cell, (Cell e) -> e.value.equals(input[1]), (Cell e) -> e.value = input[2]);
                     }
                 }
                 case "MERGE" -> {
@@ -55,12 +51,12 @@ class Solution {
                     final Cell preTarget = target;
                     final Cell preParent = fixParent;
                     final String preValue = fixValue;
-                    Predicate<Cell> matchCellParentPredicate = (Cell e) -> e.parent == preTarget;
+
                     Consumer<Cell> updateCellConsumer = (Cell e) -> {
                         e.parent = preParent;
                         e.value = preValue;
                     };
-                    updateCell(cell, matchCellParentPredicate, updateCellConsumer);
+                    updateCell(cell, (Cell e) -> e.parent == preTarget, updateCellConsumer);
                 }
                 case "UNMERGE" -> {
                     int r = Integer.parseInt(input[1]);
@@ -68,13 +64,11 @@ class Solution {
                     Cell target = cell[r][c].parent;
                     String origValue = cell[r][c].value;
 
-                    for (int row = 1; row < cell.length; row++) {
-                        for (int col = 1; col < cell[0].length; col++) {
-                            if (cell[row][col].parent == target) {
-                                cell[row][col] = new Cell();
-                            }
-                        }
-                    }
+                    Consumer<Cell> updateCellInit = (Cell e) -> {
+                        e.parent = e;
+                        e.value = "";
+                    };
+                    updateCell(cell, (Cell e) -> e.parent == target, updateCellInit);
 
                     cell[r][c].parent = cell[r][c];
                     cell[r][c].value = origValue;
