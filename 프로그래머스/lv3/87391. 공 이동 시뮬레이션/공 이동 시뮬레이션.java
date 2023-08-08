@@ -23,28 +23,28 @@ class Solution {
 
     public long solution(int n, int m, int y, int x, int[][] queries) {
 
-        int sx, ex, sy, ey;
-        sy = ey = y;
-        sx = ex = x;
+        int startX, endX, startY, endY;
+        startY = endY = y;
+        startX = endX = x;
         for (int i = queries.length - 1; i >= 0; i--) {
             int dir = queries[i][0];
             int cnt = queries[i][1];
 
             // 행(y)
             if (dir > 1) {
-                int[] res = getBeforeRange(sy, ey, cnt * dy[dir], n);
+                int[] res = getBeforeRange(startY, endY, cnt * dy[dir], n);
                 if (res[0] == -1)
                     return 0;
-                sy = res[0];
-                ey = res[1];
+                startY = res[0];
+                endY = res[1];
             } else {// 열(x)
-                int[] res = getBeforeRange(sx, ex, cnt * dx[dir], m);
+                int[] res = getBeforeRange(startX, endX, cnt * dx[dir], m);
                 if (res[0] == -1)
                     return 0;
-                sx = res[0];
-                ex = res[1];
+                startX = res[0];
+                endX = res[1];
             }
         }
-        return (long) (ex - sx + 1) * (long) (ey - sy + 1);
+        return (long) (endX - startX + 1) * (long) (endY - startY + 1);
     }
 }
