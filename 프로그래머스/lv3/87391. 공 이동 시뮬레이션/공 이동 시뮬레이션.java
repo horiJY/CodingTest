@@ -1,6 +1,6 @@
 class Solution {
-    public int[] dy = { 0, 0, 1, -1 };
-    public int[] dx = { 1, -1, 0, 0 };
+     int[] dy = { 0, 0, 1, -1 };
+     int[] dx = { 1, -1, 0, 0 };
 
     public int[] getBeforeRange(int s, int e, int move, int max) {
         int beforeS = (s == 0 && move > 0) ? 0 : s + move;
