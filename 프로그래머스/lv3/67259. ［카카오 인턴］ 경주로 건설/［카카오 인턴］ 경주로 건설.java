@@ -29,6 +29,7 @@ class Solution {
 
             board[cur.y][cur.x] = Math.min(board[cur.y][cur.x], cur.cost);
 
+            int reverse = (cur.dir + 2) % 4;
             for (int i = 0; i < dx.length; i++) {
                 int ny = cur.y + dy[i];
                 int nx = cur.x + dx[i];
@@ -40,7 +41,7 @@ class Solution {
 
                 if (cur.dir == i) {
                     que.offer(new Simulation(cur.cost + 100, ny, nx, i));
-                } else {
+                } else if (i != reverse) {
                     que.offer(new Simulation(cur.cost + 600, ny, nx, i));
                 }
             }
