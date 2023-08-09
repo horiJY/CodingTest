@@ -52,11 +52,11 @@ class Solution {
                     final Cell preParent = fixParent;
                     final String preValue = fixValue;
 
-                    Consumer<Cell> updateCellConsumer = (Cell e) -> {
-                        e.parent = preParent;
-                        e.value = preValue;
-                    };
-                    updateCell(cell, (Cell e) -> e.parent == preTarget, updateCellConsumer);
+                    updateCell(cell, (Cell e) -> e.parent == preTarget,
+                            (Cell e) -> {
+                                e.parent = preParent;
+                                e.value = preValue;
+                            });
                 }
                 case "UNMERGE" -> {
                     int r = Integer.parseInt(input[1]);
@@ -64,11 +64,11 @@ class Solution {
                     Cell target = cell[r][c].parent;
                     String origValue = cell[r][c].value;
 
-                    Consumer<Cell> updateCellInit = (Cell e) -> {
-                        e.parent = e;
-                        e.value = "";
-                    };
-                    updateCell(cell, (Cell e) -> e.parent == target, updateCellInit);
+                    updateCell(cell, (Cell e) -> e.parent == target,
+                            (Cell e) -> {
+                                e.parent = e;
+                                e.value = "";
+                            });
 
                     cell[r][c].parent = cell[r][c];
                     cell[r][c].value = origValue;
