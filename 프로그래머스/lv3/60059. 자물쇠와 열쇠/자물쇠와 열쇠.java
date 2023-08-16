@@ -8,7 +8,6 @@ class Solution {
         M = lock.length;
 
         for (int i = 0; i < 4; i++) {
-            key = rotate90Degree(key);
             for (int padX = -N; padX <= M; padX++) {
                 for (int padY = -N; padY <= M; padY++) {
                     if (validOpen(lock, key, padX, padY)) {
@@ -16,6 +15,7 @@ class Solution {
                     }
                 }
             }
+            key = rotate90Degree(key);
         }
 
         return false;
