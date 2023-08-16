@@ -6,14 +6,6 @@ class Solution {
     public boolean solution(int[][] key, int[][] lock) {
         N = key.length;
         M = lock.length;
-        for (int i = 0; i < lock.length; i++) {
-            if (Arrays.stream(lock[i]).filter(e -> e == 0).count() > 0) {
-                break;
-            }
-            if (i == lock.length - 1) {
-                return true;
-            }
-        }
 
         for (int i = 0; i < 4; i++) {
             key = rotate90Degree(key);
