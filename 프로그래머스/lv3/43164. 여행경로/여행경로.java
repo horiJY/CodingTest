@@ -19,27 +19,19 @@ class Solution {
         return DFS("ICN").toArray(new String[0]);
     }
 
-    private Deque<String> DFS(String key) {
-        if (!graph.containsKey(key) || graph.get(key).isEmpty()) {
-            return new LinkedList<>(List.of(key));
+    private Deque<String> DFS(String next) {
+        if (!graph.containsKey(next) || graph.get(next).isEmpty()) {
+            return new LinkedList<>(List.of(next));
         }
 
-        Deque<String> right = DFS(graph.get(key).poll());
-        if (!graph.get(key).isEmpty()) {
-            Deque<String> left = DFS(graph.get(key).poll());
-            if (left.size() > right.size()) {
-                while (!right.isEmpty()) {
-                    left.addLast(right.pollFirst());
-                }
-                right = left;
-            } else {
-                while (!left.isEmpty()) {
-                    right.addFirst(left.pollLast());
-                }
-            }
+        Deque<String> postfix = DFS(graph.get(next).poll());
+        if (!graph.get(next).isEmpty()) {
+            Deque<String> prefix = DFS(graph.get(next).poll());
+            prefix.addAll(postfix);
+            postfix = prefix;
         }
-        right.addFirst(key);
-        return right;
+        postfix.addFirst(next);
+        return postfix;
     }
 
 }
