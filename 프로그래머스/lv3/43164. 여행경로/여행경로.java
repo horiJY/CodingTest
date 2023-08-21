@@ -25,7 +25,7 @@ class Solution {
         }
 
         Deque<String> postfix = DFS(graph.get(next).poll());
-        if (!graph.get(next).isEmpty()) {
+        if (!graph.get(next).isEmpty()) { // 후위 경로를 뽑았는데도 남아있다는건 남아있는 경로를 돌 수 없다는 뜻 -> 후위 경로앞에 나머지경로를 붙여준다.
             Deque<String> prefix = DFS(graph.get(next).poll());
             prefix.addAll(postfix);
             postfix = prefix;
