@@ -9,7 +9,7 @@ class Solution {
             targetCop = Math.max(targetCop, is[1]);
         }
 
-        int[][] memo = new int[targetAlp + 20][targetCop + 20];
+        int[][] memo = new int[targetAlp + 2][targetCop + 2];
         for (int i = 0; i < memo.length; i++) {
             Arrays.fill(memo[i], Integer.MAX_VALUE);
         }
@@ -19,11 +19,11 @@ class Solution {
             for (int cur_cop = cop; cur_cop < memo[0].length - 1; cur_cop++) {
                 memo[cur_alp + 1][cur_cop] = Math.min(memo[cur_alp + 1][cur_cop], memo[cur_alp][cur_cop] + 1);
                 memo[cur_alp][cur_cop + 1] = Math.min(memo[cur_alp][cur_cop + 1], memo[cur_alp][cur_cop] + 1);
-                
+
                 for (int[] problem : problems) {
                     if (cur_alp >= problem[0] && cur_cop >= problem[1]) {
-                        int nextAlp = cur_alp + problem[2] > targetAlp ? targetAlp : cur_alp + problem[2];
-                        int nextCop = cur_cop + problem[3] > targetCop ? targetCop : cur_cop + problem[3];
+                        int nextAlp = cur_alp + problem[2] >= targetAlp ? targetAlp : cur_alp + problem[2];
+                        int nextCop = cur_cop + problem[3] >= targetCop ? targetCop : cur_cop + problem[3];
 
                         memo[nextAlp][nextCop] = Math.min(memo[nextAlp][nextCop],
                                 memo[cur_alp][cur_cop] + problem[4]);
