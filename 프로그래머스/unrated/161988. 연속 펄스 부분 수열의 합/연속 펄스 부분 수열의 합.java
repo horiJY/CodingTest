@@ -21,7 +21,7 @@ class Solution {
         memo = new long[sequence.length];
         memo[0] = -sequence[0];
         for (int i = 1; i < memo.length; i++) {
-            memo[i] = Math.max(0, memo[i - 1]) + (-sequence[i]);
+            memo[i] = Math.max(0, memo[i - 1]) -sequence[i];
         }
         answer = Math.max(answer, Arrays.stream(memo).max().getAsLong());
 
