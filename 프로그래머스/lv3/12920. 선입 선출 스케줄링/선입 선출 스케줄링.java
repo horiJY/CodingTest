@@ -1,39 +1,48 @@
 class Solution {
     public int solution(int n, int[] cores) {
-        if (n <= cores.length) {
-            return n;
-        }
-
-        int maxTime = 100000;
-        int[] process = new int[maxTime + 1];
-        for (int i = 0; i < cores.length; i++) {
-            for (int j = 1; j < process.length; j += cores[i]) {
-                process[j]++;
-            }
-        }
-
-        int work = 0;
-        for (int i = 0; i < process.length; i++) {
-            work += process[i];
-            if (work < n && n <= work + process[i + 1]) {
-                n -= work;
-                maxTime = i;
-                break;
-            }
-
-        }
-
         int answer = 0;
-        for (int i = 0; i < cores.length; i++) {
-            if (maxTime % cores[i] == 0) {
-                n--;
-                if (n == 0) {
+        int min = 0;
+        int max = n * cores[0];
+        int remain = 0;
+        int time = 0;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            int workCount = getCompletedWork(mid, cores);
+
+            if (workCount >= n) {
+                max = mid - 1;
+                time = mid;
+                remain = workCount;
+            } else {
+                min = mid + 1;
+            }
+        }
+
+        remain -= n;
+        for (int i = cores.length - 1; i >= 0; i--) {
+            if (time % cores[i] == 0) {
+                if (remain == 0) {
                     answer = i + 1;
                     break;
                 }
+                remain--;
             }
         }
 
         return answer;
+    }
+
+    private int getCompletedWork(int time, int[] cores) {
+        if (time == 0) {
+            return cores.length;
+        }
+
+        int result = cores.length;
+        for (int i = 0; i < cores.length; i++) {
+            result += (time / cores[i]);
+        }
+
+        return result;
     }
 }
