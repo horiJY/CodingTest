@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 class Solution {
     // 산봉우리 중 한 곳만 방문한 뒤 다시 원래의 출입구로 돌아오는 등산코스 중
     // intensity가 최소가 되는 등산코스
-    Set<Integer> gateSet;
-    Set<Integer> summitSet;
     List<int[]>[] graph;
 
     public int[] solution(int n, int[][] paths, int[] gates, int[] summits) {
@@ -20,8 +18,8 @@ class Solution {
             graph[i] = new ArrayList<>();
         }
 
-        gateSet = Arrays.stream(gates).boxed().collect(Collectors.toSet());
-        summitSet = Arrays.stream(summits).boxed().collect(Collectors.toSet());
+        Set<Integer> gateSet = Arrays.stream(gates).boxed().collect(Collectors.toSet());
+        Set<Integer> summitSet = Arrays.stream(summits).boxed().collect(Collectors.toSet());
 
         for (int[] path : paths) {
             if (gateSet.contains(path[0]) || summitSet.contains(path[1])) {
