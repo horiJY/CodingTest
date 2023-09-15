@@ -4,6 +4,7 @@ class Solution {
     public String solution(int n, int k, String[] cmd) {
         int maxLen = n;
         Stack<Integer> delStack = new Stack<>();
+        
         for (String e : cmd) {
             String command = e.split(" ")[0];
             switch (command) {
