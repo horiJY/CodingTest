@@ -7,7 +7,7 @@ class Solution {
         }
 
         int answer = 0;
-        // 첫번째 선택
+        // 첫번째 선택, 마지막 포기
         memo = new int[money.length];
         memo[0] = money[0];
         memo[1] = money[0];
@@ -16,7 +16,7 @@ class Solution {
         }
         answer = Math.max(memo[memo.length - 1], memo[memo.length - 2]);
 
-        // 두번째 선택
+        // 두번째 선택, 마지막 선택
         memo = new int[money.length];
         memo[0] = 0;
         memo[1] = money[1];
