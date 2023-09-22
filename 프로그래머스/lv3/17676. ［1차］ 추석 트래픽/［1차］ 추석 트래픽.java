@@ -11,10 +11,6 @@ class Solution {
             logTimeArr[i][0] = logTimeArr[i][1] - Integer.valueOf(l[2] + "0".repeat(4 - l[2].length())) + 1;
         }
 
-        Arrays.sort(logTimeArr, (int[] a, int[] b )->{
-            return a[1] - b[1];
-        });
-        
         for (int i = 0; i < logTimeArr.length; i++) {
             int tempCnt = 1;
             for (int j = i + 1; j < logTimeArr.length; j++) {
