@@ -10,20 +10,19 @@ class Solution {
             scoreBoard[result[1]][result[0]] = -1; // lose
         }
 
-        for (int i = 1; i < scoreBoard.length; i++) {
-
-            for (int j = 1; j < scoreBoard[i].length; j++) {
-                if (scoreBoard[i][j] == 1) {
-                    for (int k = 1; k < scoreBoard[j].length; k++) {
-                        if (scoreBoard[i][k] == -1) {
-                            scoreBoard[j][k] = -1;
+        for (int base = 1; base < scoreBoard.length; base++) {
+            for (int target = 1; target < scoreBoard[base].length; target++) {
+                if (scoreBoard[base][target] == 1) {
+                    for (int i = 1; i < scoreBoard[target].length; i++) {
+                        if (scoreBoard[base][i] == -1) {
+                            scoreBoard[target][i] = -1;
                         }
                     }
                 }
-                if (scoreBoard[i][j] == -1) {
-                    for (int k = 1; k < scoreBoard[j].length; k++) {
-                        if (scoreBoard[i][k] == 1) {
-                            scoreBoard[j][k] = 1;
+                if (scoreBoard[base][target] == -1) {
+                    for (int k = 1; k < scoreBoard[target].length; k++) {
+                        if (scoreBoard[base][k] == 1) {
+                            scoreBoard[target][k] = 1;
                         }
                     }
                 }
