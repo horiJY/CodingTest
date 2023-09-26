@@ -20,7 +20,7 @@ class Solution {
 
                     if (!refreshRoom.isEmpty()) {
                         while (!refreshRoom.isEmpty()) {
-                            nextRoom.put(refreshRoom.pollFirst(), targetNum + 1);
+                            nextRoom.put(refreshRoom.poll(), targetNum + 1);
                         }
                     }
                     break;
