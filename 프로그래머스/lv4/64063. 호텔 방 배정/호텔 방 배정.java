@@ -13,21 +13,16 @@ class Solution {
         for (int i = 0; i < room_number.length; i++) {
             long targetNum = room_number[i];
 
-            while (true) {
-                if (nextRoom.get(targetNum) == null) {
-                    answer[i] = targetNum;
-                    nextRoom.put(targetNum, targetNum + 1);
+            while (nextRoom.get(targetNum) != null) {
+                refreshRoom.offer(targetNum);
+                targetNum = nextRoom.get(targetNum);
+            }
 
-                    if (!refreshRoom.isEmpty()) {
-                        while (!refreshRoom.isEmpty()) {
-                            nextRoom.put(refreshRoom.poll(), targetNum + 1);
-                        }
-                    }
-                    break;
-                } else {
-                    refreshRoom.offer(targetNum);
-                    targetNum = nextRoom.get(targetNum);
-                }
+            answer[i] = targetNum;
+            nextRoom.put(targetNum, targetNum + 1);
+
+            while (!refreshRoom.isEmpty()) {
+                nextRoom.put(refreshRoom.poll(), targetNum + 1);
             }
         }
 
