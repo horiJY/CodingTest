@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 class Solution {
     public int solution(int n, int[][] results) {
+        int answer=0;
         int[] rank = new int[n + 1];
         int[][] scoreBoard = new int[n + 1][n + 1];
 
@@ -34,10 +35,10 @@ class Solution {
             int lose = (int) Arrays.stream(scoreBoard[i]).filter(e -> e == -1).count();
 
             if (win + lose == n - 1) {
-                rank[i] = (n - win);
+                answer++;
             }
         }
 
-        return (int) Arrays.stream(rank).filter(e -> e != 0).count();
+        return answer;
     }
 }
