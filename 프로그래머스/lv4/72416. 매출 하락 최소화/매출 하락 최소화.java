@@ -26,8 +26,7 @@ class Solution {
         cache = new int[sales.length + 1][2];
         DFS(1);
 
-        int answer = Math.min(cache[1][0], cache[1][1]);
-        return answer;
+        return Math.min(cache[1][0], cache[1][1]);
     }
 
     private void DFS(int num) {
