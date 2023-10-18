@@ -11,10 +11,9 @@ class Solution {
     public int solution(int n, int count) {
         cache = new long[n + 1][n + 1];
         cache[1][1] = 1;
-        int maxCol = Math.min(n, count);
 
         for (int r = 2; r <= n; r++) {
-            for (int c = 1; c <= maxCol; c++) {
+            for (int c = 1; c <= count; c++) {
                 cache[r][c] = (cache[r - 1][c - 1] + 2 * (r - 1) * cache[r - 1][c]) % DIVIDER;
             }
         }
