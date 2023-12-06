@@ -38,22 +38,16 @@ public class Main {
     }
 
     private static int findIdx(int lo, int hi, int target) {
-        if(lo == hi){
-            return lo;
+        int mid = 0;
+        while(lo < hi){
+            mid = (lo + hi) / 2;
+            if(cache[mid] < target){
+                lo = mid+1;
+            }else{
+                hi = mid;
+            }
         }
         
-        if(lo+1 == hi){
-            return cache[lo] >= target ? lo : hi;
-        }
-        
-        int mid = (lo + hi) / 2;
-        if(cache[mid] == target){
-            return mid;
-        }
-        if(cache[mid] < target){
-            return findIdx(mid+1, hi, target);
-        }else{
-            return findIdx(lo, mid, target);
-        }
+        return hi;
     }
 }
